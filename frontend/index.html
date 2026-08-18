@@ -3,184 +3,338 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HireVault</title>
+  <title>HireVault — Recruitment Platform</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <div class="layout">
-    <aside class="sidebar">
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
       <div class="brand">
-        <div class="brand-logo">HV</div>
-        <div>
-          <h2>HireVault</h2>
-          <p>Recruitment Dashboard</p>
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 64 64" fill="none">
+            <rect width="64" height="64" rx="14" fill="#2563eb"/>
+            <path d="M18 18h10v28H18zM36 18h10c6 0 10 4 10 10s-4 10-10 10H36z" fill="#fff"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>HireVault</h1>
+          <span>Recruitment Platform</span>
         </div>
       </div>
 
-      <nav class="sidebar-nav">
-        <a href="#dashboard" class="active">Dashboard</a>
-        <a href="#jobs">Jobs</a>
-        <a href="#candidates">Candidates</a>
-        <a href="#pipeline">Pipeline</a>
-      </nav>
+      <div class="nav-wrap">
+        <p class="nav-label">Main Menu</p>
+        <nav class="nav">
+          <button class="nav-btn active" data-view="dashboard">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            <span>Dashboard</span>
+          </button>
+          <button class="nav-btn" data-view="jobs">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            <span>Jobs</span>
+          </button>
+          <button class="nav-btn" data-view="candidates">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span>Candidates</span>
+          </button>
+          <button class="nav-btn" data-view="applications">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span>Pipeline</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="status-card">
+          <div class="status-dot"></div>
+          <div class="status-text">
+            <strong>System Online</strong>
+            <span>API Connected</span>
+          </div>
+        </div>
+      </div>
     </aside>
 
-    <main class="main">
-      <header class="topbar">
-        <div>
-          <h1>Hiring Operations</h1>
-          <p>Manage jobs, candidates, and application stages</p>
+    <div class="main">
+      <header class="header">
+        <div class="header-left">
+          <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="header-title">
+            <h2 id="viewTitle">Dashboard</h2>
+            <p id="viewSubtitle">Overview of hiring operations</p>
+          </div>
         </div>
-        <div class="topbar-badge">Company Ready UI</div>
+        <div class="header-right">
+          <div class="header-time">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span id="currentTime">—</span>
+          </div>
+          <div class="avatar">UA</div>
+        </div>
       </header>
 
-      <section id="dashboard" class="stats-grid">
-        <div class="stat-card">
-          <span>Total Jobs</span>
-          <h3 id="jobsCount">0</h3>
-        </div>
-        <div class="stat-card">
-          <span>Total Candidates</span>
-          <h3 id="candidatesCount">0</h3>
-        </div>
-        <div class="stat-card">
-          <span>Total Applications</span>
-          <h3 id="applicationsCount">0</h3>
-        </div>
-        <div class="stat-card">
-          <span>Interview Stage</span>
-          <h3 id="interviewCount">0</h3>
-        </div>
-      </section>
-
-      <section class="forms-grid">
-        <div class="card">
-          <div class="card-header">
-            <h3>Create Job</h3>
+      <main class="content">
+        <!-- DASHBOARD -->
+        <section class="view active" id="view-dashboard">
+          <div class="kpi-row">
+            <div class="kpi kpi-blue">
+              <div class="kpi-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+              </div>
+              <div class="kpi-info">
+                <span class="kpi-label">Open Positions</span>
+                <h3 id="jobsCount">0</h3>
+              </div>
+            </div>
+            <div class="kpi kpi-green">
+              <div class="kpi-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              </div>
+              <div class="kpi-info">
+                <span class="kpi-label">Candidates</span>
+                <h3 id="candidatesCount">0</h3>
+              </div>
+            </div>
+            <div class="kpi kpi-purple">
+              <div class="kpi-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div class="kpi-info">
+                <span class="kpi-label">Applications</span>
+                <h3 id="applicationsCount">0</h3>
+              </div>
+            </div>
+            <div class="kpi kpi-orange">
+              <div class="kpi-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="kpi-info">
+                <span class="kpi-label">In Interview</span>
+                <h3 id="interviewCount">0</h3>
+              </div>
+            </div>
           </div>
-          <form id="jobForm" class="form-grid">
-            <input type="text" name="title" placeholder="Job title" required />
-            <input type="text" name="department" placeholder="Department" required />
-            <input type="text" name="location" placeholder="Location" required />
-            <select name="employment_type" required>
-              <option value="Full-time">Full-time</option>
-              <option value="Part-time">Part-time</option>
-              <option value="Contract">Contract</option>
-            </select>
-            <select name="status" required>
-              <option value="Open">Open</option>
-              <option value="Closed">Closed</option>
-            </select>
-            <textarea name="description" placeholder="Job description"></textarea>
-            <button type="submit" class="btn-primary">Create Job</button>
-          </form>
-        </div>
 
-        <div class="card">
-          <div class="card-header">
-            <h3>Create Candidate</h3>
+          <div class="dash-grid">
+            <div class="card">
+              <div class="card-head">
+                <h3>Recent Jobs</h3>
+                <button class="chip" data-view="jobs">View all</button>
+              </div>
+              <div id="recentJobs" class="stack"></div>
+            </div>
+            <div class="card">
+              <div class="card-head">
+                <h3>Recent Candidates</h3>
+                <button class="chip" data-view="candidates">View all</button>
+              </div>
+              <div id="recentCandidates" class="stack"></div>
+            </div>
+            <div class="card">
+              <div class="card-head">
+                <h3>Pipeline Summary</h3>
+                <button class="chip" data-view="applications">View pipeline</button>
+              </div>
+              <div id="stageSummary" class="stack"></div>
+            </div>
           </div>
-          <form id="candidateForm" class="form-grid">
-            <input type="text" name="full_name" placeholder="Full name" required />
-            <input type="email" name="email" placeholder="Email" required />
-            <input type="text" name="phone" placeholder="Phone" />
-            <input type="number" name="years_experience" placeholder="Years experience" min="0" />
-            <input type="text" name="current_company" placeholder="Current company" />
-            <textarea name="skills" placeholder="Skills"></textarea>
-            <button type="submit" class="btn-primary">Create Candidate</button>
-          </form>
-        </div>
+        </section>
 
-        <div class="card">
-          <div class="card-header">
-            <h3>Create Application</h3>
+        <!-- JOBS -->
+        <section class="view" id="view-jobs">
+          <div class="split">
+            <div class="card">
+              <div class="card-head"><h3>New Job Posting</h3></div>
+              <form id="jobForm" class="form">
+                <div class="field">
+                  <label>Job Title</label>
+                  <input type="text" name="title" placeholder="e.g. Senior Frontend Engineer" required />
+                </div>
+                <div class="row-2">
+                  <div class="field">
+                    <label>Department</label>
+                    <input type="text" name="department" placeholder="Engineering" required />
+                  </div>
+                  <div class="field">
+                    <label>Location</label>
+                    <input type="text" name="location" placeholder="Lahore" required />
+                  </div>
+                </div>
+                <div class="row-2">
+                  <div class="field">
+                    <label>Employment Type</label>
+                    <select name="employment_type" required>
+                      <option value="Full-time">Full-time</option>
+                      <option value="Part-time">Part-time</option>
+                      <option value="Contract">Contract</option>
+                      <option value="Internship">Internship</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label>Status</label>
+                    <select name="status" required>
+                      <option value="Open">Open</option>
+                      <option value="Closed">Closed</option>
+                      <option value="On Hold">On Hold</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Description</label>
+                  <textarea name="description" placeholder="Job responsibilities and requirements..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Create Job</button>
+              </form>
+            </div>
+            <div class="card">
+              <div class="card-head"><h3>Jobs Directory</h3></div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Title</th>
+                      <th>Department</th>
+                      <th>Location</th>
+                      <th>Type</th>
+                      <th>Status</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="jobsTableBody"></tbody>
+                </table>
+              </div>
+            </div>
           </div>
-          <form id="applicationForm" class="form-grid">
-            <select name="job_id" id="jobSelect" required>
-              <option value="">Select job</option>
-            </select>
-            <select name="candidate_id" id="candidateSelect" required>
-              <option value="">Select candidate</option>
-            </select>
-            <select name="stage" required>
-              <option value="Applied">Applied</option>
-              <option value="Screening">Screening</option>
-              <option value="Interview">Interview</option>
-              <option value="Offer">Offer</option>
-              <option value="Hired">Hired</option>
-              <option value="Rejected">Rejected</option>
-            </select>
-            <textarea name="notes" placeholder="Notes"></textarea>
-            <button type="submit" class="btn-primary">Create Application</button>
-          </form>
-        </div>
-      </section>
+        </section>
 
-      <section id="jobs" class="card table-card">
-        <div class="card-header">
-          <h3>Jobs</h3>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Department</th>
-                <th>Location</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="jobsTableBody"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <section id="candidates" class="card table-card">
-        <div class="card-header">
-          <h3>Candidates</h3>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Experience</th>
-                <th>Company</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="candidatesTableBody"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <section id="pipeline" class="card">
-        <div class="card-header pipeline-header">
-          <h3>Application Pipeline</h3>
-          <div class="filters">
-            <input type="text" id="searchInput" placeholder="Search candidate or job" />
-            <select id="stageFilter">
-              <option value="All">All stages</option>
-              <option value="Applied">Applied</option>
-              <option value="Screening">Screening</option>
-              <option value="Interview">Interview</option>
-              <option value="Offer">Offer</option>
-              <option value="Hired">Hired</option>
-              <option value="Rejected">Rejected</option>
-            </select>
+        <!-- CANDIDATES -->
+        <section class="view" id="view-candidates">
+          <div class="split">
+            <div class="card">
+              <div class="card-head"><h3>New Candidate</h3></div>
+              <form id="candidateForm" class="form">
+                <div class="field">
+                  <label>Full Name</label>
+                  <input type="text" name="full_name" placeholder="Ahmed Khan" required />
+                </div>
+                <div class="row-2">
+                  <div class="field">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="ahmed@company.com" required />
+                  </div>
+                  <div class="field">
+                    <label>Phone</label>
+                    <input type="text" name="phone" placeholder="03001234567" />
+                  </div>
+                </div>
+                <div class="row-2">
+                  <div class="field">
+                    <label>Experience (Years)</label>
+                    <input type="number" name="years_experience" placeholder="3" min="0" />
+                  </div>
+                  <div class="field">
+                    <label>Current Company</label>
+                    <input type="text" name="current_company" placeholder="ABC Tech" />
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Skills</label>
+                  <textarea name="skills" placeholder="JavaScript, React, Node.js, Python"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Add Candidate</button>
+              </form>
+            </div>
+            <div class="card">
+              <div class="card-head"><h3>Candidates Directory</h3></div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Exp</th>
+                      <th>Company</th>
+                      <th>Skills</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="candidatesTableBody"></tbody>
+                </table>
+              </div>
+            </div>
           </div>
-        </div>
-        <div id="pipelineBoard" class="pipeline-board"></div>
-      </section>
-    </main>
+        </section>
+
+        <!-- APPLICATIONS -->
+        <section class="view" id="view-applications">
+          <div class="split split-pipeline">
+            <div class="card">
+              <div class="card-head"><h3>New Application</h3></div>
+              <form id="applicationForm" class="form">
+                <div class="field">
+                  <label>Select Job</label>
+                  <select name="job_id" id="jobSelect" required>
+                    <option value="">Choose a job posting</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>Select Candidate</label>
+                  <select name="candidate_id" id="candidateSelect" required>
+                    <option value="">Choose a candidate</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>Initial Stage</label>
+                  <select name="stage" required>
+                    <option value="Applied">Applied</option>
+                    <option value="Screening">Screening</option>
+                    <option value="Interview">Interview</option>
+                    <option value="Offer">Offer</option>
+                    <option value="Hired">Hired</option>
+                    <option value="Rejected">Rejected</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>Notes</label>
+                  <textarea name="notes" placeholder="Initial remarks..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Submit Application</button>
+              </form>
+            </div>
+
+            <div class="card">
+              <div class="card-head card-head-between">
+                <h3>Hiring Pipeline</h3>
+                <div class="filters">
+                  <div class="search-box">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="searchInput" placeholder="Search..." />
+                  </div>
+                  <select id="stageFilter">
+                    <option value="All">All Stages</option>
+                    <option value="Applied">Applied</option>
+                    <option value="Screening">Screening</option>
+                    <option value="Interview">Interview</option>
+                    <option value="Offer">Offer</option>
+                    <option value="Hired">Hired</option>
+                    <option value="Rejected">Rejected</option>
+                  </select>
+                </div>
+              </div>
+              <div id="pipelineBoard" class="pipeline"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
   </div>
 
   <div id="toast" class="toast hidden"></div>
-
   <script type="module" src="./js/app.js"></script>
 </body>
 </html>
